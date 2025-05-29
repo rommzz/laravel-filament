@@ -15,7 +15,7 @@
 - clone
 setelah clone repository, copy file `.env.example` ke root project dengan nama `.env`
 ```bash
-git clone https://github.com/your-repo/task-management.git
+git clone https://github.com/rommzz/laravel-filament.git
 cd laravel-filament
 cp .env.example .env
 ```
