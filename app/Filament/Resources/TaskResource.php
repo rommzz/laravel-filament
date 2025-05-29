@@ -77,7 +77,6 @@ class TaskResource extends Resource
                             $component->getRecord()?->subtasks()->where('completed', true)->pluck('id')->toArray() ?? []
                         );
                     })
-                    ->live() // ini penting: agar update langsung kirim ke Livewire
                     ->afterStateUpdated(function ($state, $component) {
                         $task = $component->getRecord();
 
@@ -87,7 +86,6 @@ class TaskResource extends Resource
                             ]);
                         }
                     })
-                    ->dehydrated(false)
                     ->visibleOn('edit'),
             ])->columns(1);
     }
