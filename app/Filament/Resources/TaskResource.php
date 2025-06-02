@@ -4,7 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TaskResource\Pages;
 use App\Filament\Resources\TaskResource\RelationManagers;
+use App\Filament\Resources\TaskResource\Widgets\StatsOverview;
+use App\Filament\Resources\TaskResource\Widgets\TaskStatsWidget;
 use App\Models\Task;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
@@ -25,6 +28,8 @@ class TaskResource extends Resource
     protected static ?string $model = Task::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+
 
     public static function form(Form $form): Form
     {
@@ -130,7 +135,16 @@ class TaskResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->action(function ($records, $livewire) {
+                            foreach ($records as $record) {
+                                $record->delete();
+                            }
+
+                            // Trigger event ke widget atau komponen lain
+                            $livewire->dispatch('taskDeleted');
+                            // Filament::notify('success', 'Beberapa task berhasil dihapus!');
+                        }),
                 ]),
             ])
             ->groups([

@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Home', [
+        'title' => 'Welcome to the Task Management System',
+        'description' => 'Manage your tasks efficiently with our intuitive interface.',
+    ]);
 });
